@@ -32,7 +32,10 @@ xlabel('Time (a.u.)')
 %% create and implement Gaussian window
 
 % full-width half-maximum: the key Gaussian parameter
-fwhm = 25; % in points
+fwhm = 15; % in points
+%lower the fwhm the condense it is i.e. 5
+%higher the fwhm the smoother it is i.e. 95
+
 
 % normalized time vector in ms
 k = 100;

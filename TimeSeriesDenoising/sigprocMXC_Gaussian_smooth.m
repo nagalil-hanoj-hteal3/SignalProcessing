@@ -15,7 +15,7 @@ n     = length(time);
 p     = 15; % poles for random interpolation
 
 % noise level, measured in standard deviations
-noiseamp = 5; 
+noiseamp = 5;
 
 % amplitude modulator and noise level
 ampl   = interp1(rand(p,1)*30,linspace(1,p,n));
@@ -25,10 +25,10 @@ signal = ampl + noise;
 %% create Gaussian kernel
 
 % full-width half-maximum: the key Gaussian parameter
-fwhm = 25; % in ms
+fwhm = 25.234571823; % in ms
 
 % normalized time vector in ms
-k = 100;
+k = 40;
 gtime = 1000*(-k:k)/srate;
 
 % create Gaussian window
@@ -51,6 +51,9 @@ title([ 'Gaussian kernel with requeted FWHM ' num2str(fwhm) ' ms (' num2str(empF
 xlabel('Time (ms)'), ylabel('Gain')
 
 %% implement the filter
+
+%%%%%%%%%% UPDATED %%%%%%%%%%%%%
+
 
 % initialize filtered signal vector
 filtsigG = signal;

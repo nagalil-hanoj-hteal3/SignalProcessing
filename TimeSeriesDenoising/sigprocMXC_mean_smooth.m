@@ -13,7 +13,7 @@ n     = length(time);
 p     = 15; % poles for random interpolation
 
 % noise level, measured in standard deviations
-noiseamp = 5; 
+noiseamp = 5;
 
 % amplitude modulator and noise level
 ampl   = interp1(rand(p,1)*30,linspace(1,p,n));
@@ -22,6 +22,10 @@ signal = ampl + noise;
 
 % initialize filtered signal vector
 filtsig = zeros(size(signal));
+%with this part, it will make the graph
+%have uncontrollable starts while having same
+%pattern with the commented line of code below
+%filtsig = signal;
 
 % implement the running mean filter
 k = 20; % filter window is actually k*2+1
