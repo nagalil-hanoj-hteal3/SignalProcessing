@@ -8,7 +8,9 @@
 
 %% polynomial intuition
 
-order = 0;
+% order is the exponent used in polynomial
+% i.e. order = 1 is linear, order = 2 is parabola, etc.
+order = 3;
 x = linspace(-15,15,100);
 
 y = zeros(size(x));
@@ -40,7 +42,12 @@ xlabel('Time (a.u.)'), ylabel('Amplitude')
 %% fit a 3-order polynomial
 
 % polynomial fit (returns coefficients)
-p = polyfit(t,signal,3);
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% mess around with changing the int value
+% as shown messing around with what int
+% value to use is insufficient thus Bayes rule
+% is important to utilize
+p = polyfit(t,signal,1);
 
 % predicted data is evaluation of polynomial
 yHat = polyval(p,t);
@@ -55,7 +62,9 @@ plot(t,residual,'k','linew',2)
 
 legend({'Original';'Polyfit';'Filtered signal'})
 
-%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% Below is important to determine the polyfit
 
 %% Bayes information criterion to find optimal order
 
@@ -63,14 +72,14 @@ legend({'Original';'Polyfit';'Filtered signal'})
 orders = (5:40)';
 
 % sum of squared errors (sse is reserved!)
-sse1 = zeros(length(orders),1); 
+sse1 = zeros(length(orders),1);
 
 % loop through orders
 for ri=1:length(orders)
-    
+
     % compute polynomial (fitting time series)
     yHat = polyval(polyfit(t,signal,orders(ri)),t);
-    
+
     % compute fit of model to data (sum of squared errors)
     sse1(ri) = sum( (yHat-signal).^2 )/n;
 end

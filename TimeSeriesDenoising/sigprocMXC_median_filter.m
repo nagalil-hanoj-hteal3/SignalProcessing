@@ -23,16 +23,28 @@ signal(noisepnts) = 50+rand(size(noisepnts))*100;
 
 
 % use hist to pick threshold
-figure(1), clf
-histogram(signal,100)
-zoom on
+%figure(1), clf
+%histogram(signal,100) <- matlab
+%hist(signal,100) <- octave
+%zoom on
 
-% visual-picked threshold
+% alternative for using the octave
+% Use hist to pick threshold
+figure(1); clf;
+[counts, binCenters] = hist(signal, 100); % Get histogram counts and bin centers
+bar(binCenters, counts); % Plot histogram as bar graph
+zoom on;
+
+% visual-picked threshold (important)
 threshold = 40;
 
-
 % find data values above the threshold
+% Use This
 suprathresh = find( signal>threshold );
+
+%all of the timepoints should be replace median time points
+%resulting to losing dynamics of the signal
+%suprathresh = 1:n;
 
 % initialize filtered signal
 filtsig = signal;
@@ -40,11 +52,11 @@ filtsig = signal;
 % loop through suprathreshold points and set to median of k
 k = 20; % actual window is k*2+1
 for ti=1:length(suprathresh)
-    
+
     % find lower and upper bounds
     lowbnd = max(1,suprathresh(ti)-k);
     uppbnd = min(suprathresh(ti)+k,n);
-    
+
     % compute median of surrounding points
     filtsig(suprathresh(ti)) = median(signal(lowbnd:uppbnd));
 end

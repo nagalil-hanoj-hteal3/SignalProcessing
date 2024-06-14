@@ -15,16 +15,16 @@ resdat = zeros(size(EEGdat));
 
 % loop over trials
 for triali=1:size(resdat,2)
-    
+
     % build the least-squares model as intercept and EOG from this trial
     X = [ ones(npnts,1) eyedat(:,triali) ];
-    
+
     % compute regression coefficients for EEG channel
     b = (X'*X) \ (X'*EEGdat(:,triali));
-    
+
     % predicted data
     yHat = X*b;
-    
+
     % new data are the residuals after projecting out the best EKG fit
     resdat(:,triali) = ( EEGdat(:,triali) - yHat )';
 end
@@ -53,13 +53,13 @@ subplot(132)
 imagesc(timevec,[],EEGdat')
 set(gca,'clim',clim)
 xlabel('Time (ms)'), ylabel('Trials')
-title('EOG')
+title('Uncorrected EEG')
 
 
 subplot(133)
 imagesc(timevec,[],resdat')
 set(gca,'clim',clim)
 xlabel('Time (ms)'), ylabel('Trials')
-title('Residual')
+title('Claimed EEG')
 
 %% done.
