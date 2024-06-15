@@ -46,16 +46,16 @@ eegpowW = zeros(1,length(hzW));
 
 % loop over frequencies
 for wi=1:length(winonsets)
-    
+
     % get a chunk of data from this time window
     datachunk = eegdata(winonsets(wi):winonsets(wi)+winlength-1);
-    
+
     % apply Hann taper to data
     datachunk = datachunk .* hannw;
-    
+
     % compute its power
     tmppow = abs(fft(datachunk)/winlength).^2;
-    
+
     % enter into matrix
     eegpowW = eegpowW  + tmppow(1:length(hzW));
 end
@@ -84,7 +84,10 @@ hannw = .5 - cos(2*pi*linspace(0,1,winsize))./2;
 % number of FFT points (frequency resolution)
 nfft = srate*100;
 
-pwelch(eegdata,hannw,round(winsize/4),nfft,srate);
+%error
+%pwelch(eegdata,hannw,round(winsize/4),nfft,srate);
+
+pwelch(eegdata,hannw,1/2,nfft,srate);
 set(gca,'xlim',[0 40])
 
 %% done.

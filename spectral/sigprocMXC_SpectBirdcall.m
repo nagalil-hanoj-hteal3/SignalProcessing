@@ -7,7 +7,8 @@
 %%
 
 % load in birdcall (source: https://www.xeno-canto.org/403881)
-[bc,fs] = audioread('XC403881.mp3'); % in Octave, import the wav version
+% [bc,fs] = audioread('XC403881.mp3'); % in Octave, import the wav version
+[bc,fs] = audioread('XC403881.wav'); % in Octave, import the wav version
 
 % let's hear it!
 soundsc(bc,fs)
@@ -20,6 +21,8 @@ timevec = (0:n-1)/fs;
 % plot the data from the two channels
 figure(1), clf
 subplot(211)
+
+% this adds an offset value using bsxfun
 plot(timevec,bsxfun(@plus,bc,[.2 0]))
 xlabel('Time (sec.)')
 title('Time domain')
@@ -39,10 +42,10 @@ set(gca,'xlim',[0 8000])
 %% now for a time-frequency analysis
 
 % use MATLAB's spectrogram function (in the signal processing toolbox)
-[powspect,frex,time] = spectrogram(detrend(bc(:,2)),hann(1000),100,[],fs);
+% [powspect,frex,time] = spectrogram(detrend(bc(:,2)),hann(1000),100,[],fs);
 
 % Octave uses the following line instead of the above line
-%[powspect,frex,time] = specgram(detrend(bc(:,2)),1000,fs,hann(1000));
+[powspect,frex,time] = specgram(detrend(bc(:,2)),1000,fs,hann(1000));
 
 
 % show the time-frequency power plot
