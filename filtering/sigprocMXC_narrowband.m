@@ -11,10 +11,15 @@ lower_bnd = 10; % Hz
 upper_bnd = 18; % Hz
 
 lower_trans = .1;
-upper_trans = .4;
+
+%upper_trans = .4;
+upper_trans = .1;
 
 samprate  = 2048; % Hz
-filtorder = 4*round(samprate/lower_bnd);
+% changing the coefficient affects the height of filter
+% kernel but firls will not match for both actual and ideal
+% filtorder = 4*round(samprate/lower_bnd);
+filtorder = 14*round(samprate/lower_bnd);
 
 filter_shape = [ 0 0 1 1 0 0 ];
 filter_freqs = [ 0 lower_bnd*(1-lower_trans) lower_bnd ...
@@ -51,7 +56,10 @@ axis square
 
 %% now apply to random noise data
 
-filtnoise = filtfilt(filterkern,1,randn(samprate*4,1));
+% change the samprate * number value for getting rid of the error
+% original (below)
+% filtnoise = filtfilt(filterkern,1,randn(samprate*4,1));
+filtnoise = filtfilt(filterkern,1,randn(samprate*10,1));
 timevec = (0:length(filtnoise)-1)/samprate;
 
 % plot time series

@@ -23,10 +23,12 @@ fdata = filtfilt(fkern,1,signal);
 %  Is there an error?  %
 %%%  --------------  %%%
 
+%% YES
+
 %%
 
 % use reflection to increase signal length!
-signalRefl = [ signal(end:-1:1) signal signal(end:-1:1) ];
+signalRefl = [ signal(end:-1:1); signal; signal(end:-1:1) ];
 
 
 % apply filter kernel to data

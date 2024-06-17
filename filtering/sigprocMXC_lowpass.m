@@ -35,6 +35,7 @@ subplot(212)
 plot(hz,yX(1:length(hz)),'k','linew',1)
 xlabel('Frequency (Hz)'), ylabel('Power')
 title('Frequency domain')
+% utilize log as li will only show the positive spike
 set(gca,'yscale','log')
 
 %% now for lowpass filter

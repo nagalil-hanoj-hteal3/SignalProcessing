@@ -15,7 +15,9 @@ upper_bnd = 60; % Hz
 transw = .1;
 
 samprate  = 2048; % Hz
-filtorder = 8*round(samprate/lower_bnd);
+
+% filtorder = 8*round(samprate/lower_bnd);
+filtorder = 4*round(samprate/lower_bnd);
 
 filter_shape = [ 0 0 1 1 0 0 ];
 filter_freqs = [ 0 lower_bnd*(1-transw) lower_bnd ...

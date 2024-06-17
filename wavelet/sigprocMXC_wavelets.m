@@ -9,11 +9,12 @@
 %% general simulation parameters
 
 fs = 1024;
-npnts = fs*5; % 5 seconds
+% must add 1 when a time series is centered at zero and symmetric at both sides
+npnts = fs*5 + 1; % 5 seconds
 
 % centered time vector
 timevec = (1:npnts)/fs;
-timevec = timevec - mean(timevec); 
+timevec = timevec - mean(timevec);
 
 % for power spectrum
 hz = linspace(0,fs/2,floor(npnts/2)+1);

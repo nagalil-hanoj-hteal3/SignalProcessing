@@ -25,8 +25,6 @@ hz      = linspace(0,srate/2,floor(length(filtkern)/2)+1);
 filtpow = filtpow(1:length(hz));
 
 
-
-
 figure(1), clf
 subplot(131)
 plot(filtkern,'linew',2)
@@ -73,18 +71,19 @@ hz = linspace(0,srate,1000);
 
 figure(2), clf
 for oi=1:length(orders)
-    
+
     % create filter kernel
     fkern = firls(orders(oi),frex,shape);
     n(oi) = length(fkern);
 
     % take its FFT
     fkernX(oi,:) = abs(fft(fkern,1000)).^2;
-    
+
     % show in plot
     subplot(211), hold on
     plot((1:n(oi))-n(oi)/2,fkern+.01*oi,'linew',2)
 end
+% displays a beautiful double wing
 xlabel('Time (ms)')
 set(gca,'ytick',[])
 title('Filter kernels with different orders')
@@ -107,6 +106,7 @@ title('Frequency response of filter (firls)')
 %% effects of the filter transition width
 
 % range of transitions
+% this affects the wavelength of
 transwidths = linspace(.01,.4,10);
 
 
@@ -116,7 +116,7 @@ hz = linspace(0,srate,1000);
 
 figure(3), clf
 for ti=1:length(transwidths)
-    
+
     % create filter kernel
     frex  = [ 0 frange(1)-frange(1)*transwidths(ti) frange(1) frange(2) frange(2)+frange(2)*transwidths(ti) nyquist ] / nyquist;
     fkern = firls(400,frex,shape);
@@ -124,7 +124,7 @@ for ti=1:length(transwidths)
 
     % take its FFT
     fkernX(ti,:) = abs(fft(fkern,1000)).^2;
-    
+
     % show in plot
     subplot(211), hold on
     plot((1:n(ti))-n(ti)/2,fkern+.01*ti,'linew',2)

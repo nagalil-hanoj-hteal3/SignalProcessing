@@ -15,8 +15,9 @@ j
 1j
 sqrt(-1)
 
-% but...
+% is a valid expression
 i = 2;
+% not a valid expression
 1i = 2;
 
 
@@ -33,6 +34,8 @@ disp([ 'Real part is ' num2str(real(z)) ' and imaginary part is ' num2str(imag(z
 
 % beware of a common programming error:
 i = 2;
+% add this
+clear i;
 zz = 4 + 3*i;
 
 
